@@ -1,9 +1,15 @@
 import React from "react";
 import { CgCloseR } from "react-icons/cg";
+import { useDispatch } from "react-redux";
+import { closeAuthenticationModal } from "../slices/userSlice";
 
 const CloseAuthenticationModalBtn = () => {
+  const dispatch = useDispatch();
   return (
-    <button className="ml-3 text-xl text-red-500 absolute right-0 bg-white pl-2">
+    <button
+      className="text-xl text-red-500 ml-2"
+      onClick={() => dispatch(closeAuthenticationModal())}
+    >
       <CgCloseR />
     </button>
   );

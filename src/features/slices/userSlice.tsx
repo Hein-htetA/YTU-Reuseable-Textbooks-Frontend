@@ -38,6 +38,12 @@ export const userSlice = createSlice({
     toggleLogin: (state) => {
       state.isLoggedIn = !state.isLoggedIn;
     },
+    openAuthenticationModal: (state) => {
+      state.authenticationModalOpen = true;
+    },
+    closeAuthenticationModal: (state) => {
+      state.authenticationModalOpen = false;
+    },
   },
 });
 
@@ -45,6 +51,10 @@ const selectIsLoggedIn = (state: RootState) => state.user.isLoggedIn;
 
 export { selectIsLoggedIn };
 
-export const { toggleLogin } = userSlice.actions;
+export const {
+  toggleLogin,
+  openAuthenticationModal,
+  closeAuthenticationModal,
+} = userSlice.actions;
 
 export default userSlice.reducer;

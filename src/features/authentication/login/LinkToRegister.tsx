@@ -1,10 +1,21 @@
 import React from "react";
 
-const LinkToRegister = () => {
+type auth = "login" | "register";
+
+interface Props {
+  setLoginOrRegister: React.Dispatch<React.SetStateAction<auth>>;
+}
+
+const LinkToRegister = ({ setLoginOrRegister }: Props) => {
   return (
     <div className="flex text-sm items-center justify-center">
       <div>Don't have an account yet?</div>
-      <button className="ml-2 text-slate-500">Create One</button>
+      <button
+        className="ml-2 text-slate-500 underline"
+        onClick={() => setLoginOrRegister("register")}
+      >
+        Create One
+      </button>
     </div>
   );
 };

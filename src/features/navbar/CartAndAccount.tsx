@@ -7,7 +7,7 @@ import LoginRegisterBtn from "./LoginRegisterBtn";
 import { toggleLogin } from "../slices/userSlice";
 
 const activeClass =
-  "transition-all flex items-center w-[80px] duration-300 ease-in-out";
+  "transition-all flex items-center w-[70px] duration-300 ease-in-out overflow-hidden";
 const inactiveClass =
   "transition-all flex items-center w-[20px] duration-300 ease-in-out";
 

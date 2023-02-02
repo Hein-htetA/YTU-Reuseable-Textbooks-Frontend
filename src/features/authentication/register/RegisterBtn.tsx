@@ -1,5 +1,4 @@
 import React from "react";
-import { GrRotateRight } from "react-icons/gr";
 import { MdOutlineRotateRight } from "react-icons/md";
 
 const RegisterBtn = () => {
