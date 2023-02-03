@@ -1,13 +1,15 @@
-import React from "react";
-import EmailInput from "../EmailInput";
+import React, { useState } from "react";
 import FormContainer from "../FormContainer";
 import GoogleSignInBtn from "../GoogleSignInBtn";
-import PasswordInput from "../PasswordInput";
 import LinkToRegister from "./LinkToRegister";
 import LoginBtn from "./LoginBtn";
 import LoginTitle from "./LoginTitle";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../store";
+import LoginErrorMsg from "./LoginErrorMsg";
+import { loginUser, selectLoginStatus } from "../../slices/userSlice";
+import LoginPasswordInput from "./LoginPasswordInput";
+import LoginEmailInput from "./LoginEmailInput";
 
 const loginFormBottom =
   "fixed p-4 bottom-0 bg-white left-0 right-0 z-20 rounded-t-xl translate-y-full transition-transform duration-500";
@@ -28,6 +30,11 @@ interface Props {
   setLoginOrRegister: React.Dispatch<React.SetStateAction<auth>>;
 }
 
+interface FormValues {
+  email: string;
+  password: string;
+}
+
 // open - login ----> show
 // open - register ----> left
 // close - login ----> bottom
@@ -43,23 +50,53 @@ const loginFormClass = (modalOpen: boolean, loginOrRegister: string) => {
     return loginFormBottomNoTransition;
   }
 };
-const LoginForm = ({ loginOrRegister, setLoginOrRegister }: Props) => {
+const LoginForm = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
+  const [formValues, setFormValues] = useState<FormValues>({
+    email: "",
+    password: "",
+  });
+
+  const { loginOrRegister, setLoginOrRegister } = props;
+
   const authenticationModalOpen = useSelector(
     (state: RootState) => state.user.authenticationModalOpen
   );
+  const loginStatus = useSelector(selectLoginStatus);
+
+  const dispatch = useDispatch<AppDispatch>();
+
   const style = loginFormClass(authenticationModalOpen, loginOrRegister);
+
+  const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormValues({ ...formValues, [e.target.name]: e.target.value });
+    //dispatch(resetLoginState());
+  };
+
+  const handleLogin = () => {
+    dispatch(loginUser(formValues));
+  };
+
   return (
-    <div className={style}>
+    <div className={style} ref={ref}>
       <LoginTitle />
+      {loginStatus === "failed" && <LoginErrorMsg />}
       <FormContainer>
-        <EmailInput />
-        <PasswordInput />
+        <LoginEmailInput
+          email={formValues.email}
+          onChangeInput={onChangeInput}
+          disabled={loginStatus === "loading"}
+        />
+        <LoginPasswordInput
+          password={formValues.password}
+          onChangeInput={onChangeInput}
+          disabled={loginStatus === "loading"}
+        />
       </FormContainer>
-      <LoginBtn />
+      <LoginBtn handleLogin={handleLogin} />
       <LinkToRegister setLoginOrRegister={setLoginOrRegister} />
       <GoogleSignInBtn />
     </div>
   );
-};
+});
 
 export default LoginForm;
