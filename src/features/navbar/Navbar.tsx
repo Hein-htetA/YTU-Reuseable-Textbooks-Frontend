@@ -7,11 +7,13 @@ import AuthenticationModalBackground from "../authentication/AuthenticationModal
 import LoginForm from "../authentication/login/LoginForm";
 import RegisterForm from "../authentication/register/RegisterForm";
 import { closeAuthenticationModal } from "../slices/userSlice";
+import Profile from "./Profile";
 
 type auth = "login" | "register";
 
 const Navbar = () => {
   const [loginOrRegister, setLoginOrRegister] = useState<auth>("login");
+  const [profileShow, setProfileShow] = useState(false);
 
   const authenticationModalOpen: boolean = useSelector(
     (state: RootState) => state.user.authenticationModalOpen
@@ -45,7 +47,11 @@ const Navbar = () => {
   return (
     <nav className="py-4 px-5 shadow-[0px_1px_8px_0px_rgba(94,87,94,0.2)] flex justify-between items-center sticky top-0 z-40 bg-white">
       <BrandName />
-      <CartAndAccount />
+      <CartAndAccount
+        setProfileShow={setProfileShow}
+        profileShow={profileShow}
+      />
+      <Profile profileShow={profileShow} setProfileShow={setProfileShow} />
 
       {authenticationModalOpen && <AuthenticationModalBackground />}
       <LoginForm

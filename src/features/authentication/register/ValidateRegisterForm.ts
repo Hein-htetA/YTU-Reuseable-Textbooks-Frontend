@@ -10,6 +10,7 @@ interface FormErrors {
   emailError?: string;
   passwordError?: string;
   confirmPasswordError?: string;
+  nameError?: string;
 }
 
 const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -41,41 +42,64 @@ export const validateRegisterForm = (formValues: FormValues) => {
       formErrors.confirmPasswordError = "Passwords doesn't match";
     }
   }
+
+  if (formValues.name.trim().length === 0) {
+    formErrors.nameError = "Name must be provided";
+  }
   return formErrors;
 };
 
 export const validateEmail = (email: string) => {
   let emailError = "";
-  if (!emailRegex.test(email)) {
-    emailError = "Please provide a valid email address";
-  }
   if (email.trim().length === 0) {
-    emailError = "Email must be provided";
+    return "Email must be provided";
+  }
+  if (!emailRegex.test(email)) {
+    return "Please provide a valid email address";
   }
 
   return emailError;
 };
 
-export const validatePassword = (password: string) => {
-  let passwordError = "";
-  if (password.trim().length < 3) {
-    passwordError = "Password must be 3 or more characters";
-  }
+export const validatePassword = (password: string, passwordError: string) => {
   if (password.trim().length === 0) {
-    passwordError = "Password must be provided";
+    return "Password must be provided";
   }
-  return passwordError;
+  if (password.trim().length < 3) {
+    return "Password must be 3 or more characters";
+  }
+
+  if (passwordError === "Passwords doesn't match") {
+    return passwordError;
+  }
+
+  return "";
 };
 
 export const validateConfirmPassword = (
   password: string,
-  confirmPassword: string
+  confirmPassword: string,
+  passwordError: string
 ) => {
-  let passwordError = "";
   let confirmPasswordError = "";
-  if (password !== confirmPassword) {
-    passwordError = "Passwords doesn't match";
-    confirmPasswordError = "Passwords doesn't match";
+  if (passwordError === "Passwords doesn't match" || !passwordError) {
+    if (password !== confirmPassword) {
+      passwordError = "Passwords doesn't match";
+      confirmPasswordError = "Passwords doesn't match";
+    } else {
+      passwordError = "";
+      confirmPassword = "";
+    }
+  } else {
+    confirmPasswordError = "";
   }
   return { passwordError, confirmPasswordError };
+};
+
+export const validateName = (name: string) => {
+  let nameError = "";
+  if (name.trim().length === 0) {
+    return "Name must be provided";
+  }
+  return nameError;
 };

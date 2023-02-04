@@ -69,7 +69,6 @@ const LoginForm = React.forwardRef<HTMLDivElement, Props>((props, ref) => {
 
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormValues({ ...formValues, [e.target.name]: e.target.value });
-    //dispatch(resetLoginState());
   };
 
   const handleLogin = () => {

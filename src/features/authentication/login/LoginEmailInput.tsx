@@ -28,6 +28,7 @@ const LoginEmailInput = ({
         value={email}
         onChange={onChangeInput}
         placeholder="example@gmail.com"
+        autoComplete="new-password"
         disabled={disabled}
         className="px-3 py-1 border-2 border-slate-500 rounded-md mt-1 outline-none"
       />

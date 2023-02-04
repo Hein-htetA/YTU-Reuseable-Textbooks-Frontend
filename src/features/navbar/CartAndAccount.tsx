@@ -5,14 +5,22 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectIsLoggedIn } from "../slices/userSlice";
 import LoginRegisterBtn from "./LoginRegisterBtn";
 import { toggleLogin } from "../slices/userSlice";
+import { RootState } from "../../store";
 
+interface Props {
+  setProfileShow: React.Dispatch<React.SetStateAction<boolean>>;
+  profileShow: boolean;
+}
 const activeClass =
   "transition-all flex items-center w-[70px] duration-300 ease-in-out overflow-hidden";
 const inactiveClass =
   "transition-all flex items-center w-[20px] duration-300 ease-in-out";
 
-const CartAndAccount = () => {
+const CartAndAccount = ({ setProfileShow, profileShow }: Props) => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
+  const userProfile = useSelector(
+    (state: RootState) => state.user.userData.picture
+  );
   const dispatch = useDispatch();
 
   return (
@@ -25,11 +33,16 @@ const CartAndAccount = () => {
       </span>
       <div className={isLoggedIn ? inactiveClass : activeClass}>
         {isLoggedIn ? (
-          <button>
+          <button
+            onClick={() => {
+              setProfileShow(true);
+            }}
+            className={profileShow ? "-z-10" : ""}
+          >
             <img
-              src={defaultAvator}
+              src={userProfile || defaultAvator}
               alt="avator"
-              className="w-5 object-scale-down"
+              className="w-5 object-scale-down rounded-md"
             />
           </button>
         ) : (

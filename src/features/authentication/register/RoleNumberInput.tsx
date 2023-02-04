@@ -3,7 +3,7 @@ import React from "react";
 interface Props {
   rollNo: string;
   onChangeInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  disabled?: boolean;
+  disabled: boolean;
 }
 
 const RoleNumberInput = ({ rollNo, onChangeInput, disabled }: Props) => {
