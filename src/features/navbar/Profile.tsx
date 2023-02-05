@@ -22,10 +22,11 @@ const icons = {
 interface Props {
   profileShow: boolean;
   setProfileShow: React.Dispatch<React.SetStateAction<boolean>>;
+  handleLogout: () => void;
 }
 
 interface FormValues {
-  rollNo: string;
+  rollNo?: string;
 }
 
 const showClass =
@@ -34,7 +35,7 @@ const showClass =
 const hideClass =
   "fixed top-16 right-4 bg-slate-200 rounded-3xl z-40 flex flex-col text-sm p-2 gap-y-1 translate-x-[calc(100%+2rem)] transition-transform duration-300";
 
-const Profile = ({ profileShow, setProfileShow }: Props) => {
+const Profile = ({ profileShow, setProfileShow, handleLogout }: Props) => {
   const [formValues, setFormValues] = useState<FormValues>({
     rollNo: "",
   });
@@ -68,7 +69,10 @@ const Profile = ({ profileShow, setProfileShow }: Props) => {
 
   //sync global store and localState
   useEffect(() => {
-    setFormValues((formValues) => ({ ...formValues, rollNo: userData.rollNo }));
+    setFormValues((formValues) => ({
+      ...formValues,
+      rollNo: userData.rollNo || "",
+    }));
   }, [userData]);
 
   return (
@@ -91,11 +95,14 @@ const Profile = ({ profileShow, setProfileShow }: Props) => {
             onClick={() => dispatch(updateUser(formValues))}
             disabled={updateStatus === "loading"}
           >
-            {icons[updateStatus]}
+            {icons[updateStatus as keyof typeof icons]}
           </button>
         </div>
       </div>
-      <button className="w-fit ml-auto px-3 py-1 my-2 bg-slate-300 text-slate-600 rounded-3xl font-bold">
+      <button
+        className="w-fit ml-auto px-3 py-1 my-2 bg-slate-300 text-slate-600 rounded-3xl font-bold"
+        onClick={handleLogout}
+      >
         Log Out
       </button>
     </div>

@@ -12,17 +12,17 @@ import {
   metalImg,
   miningImg,
   textileImg,
-} from "../../url";
+} from "../../../url";
 import SearchBox from "./SearchBox";
-import SingleMajor from "./SingleMajor";
+import SingleDepartmentInList from "./SingleDepartmentInList";
 
-interface singleMajor {
+interface SingleDepartmentInterface {
   fullName: string;
   shortName: string;
   picture: string;
 }
 
-const majorList: singleMajor[] = [
+export const departmentList: SingleDepartmentInterface[] = [
   {
     fullName: "Architecture",
     shortName: "Arch",
@@ -85,7 +85,7 @@ const majorList: singleMajor[] = [
   },
 ];
 
-const MajorList = () => {
+const DepartmentList = () => {
   return (
     <main className="">
       <SearchBox />
@@ -93,12 +93,12 @@ const MajorList = () => {
         Departments
       </h1>
       <div className="py-3 px-5 mb-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-        {majorList.map((major, index) => (
-          <SingleMajor key={index} {...major} />
+        {departmentList.map((department, index) => (
+          <SingleDepartmentInList key={index} {...department} />
         ))}
       </div>
     </main>
   );
 };
 
-export default MajorList;
+export default DepartmentList;

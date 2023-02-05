@@ -1,7 +1,10 @@
 import React from "react";
 import { MdOutlineRotateRight } from "react-icons/md";
 import { useSelector } from "react-redux";
-import { selectRegisterStatus } from "../../slices/userSlice";
+import {
+  selectRegisterStatus,
+  selectSocialSignInStatus,
+} from "../../slices/userSlice";
 
 interface Props {
   handleRegister: () => void;
@@ -9,12 +12,15 @@ interface Props {
 
 const RegisterBtn = ({ handleRegister }: Props) => {
   const registerStatus = useSelector(selectRegisterStatus);
+  const socialSignInStatus = useSelector(selectSocialSignInStatus);
 
   return (
     <button
       className="w-32 px-2 py-[6px] bg-slate-500 text-white text-sm rounded-lg my-3 flex justify-center gap-1 items-center ml-auto disabled:bg-slate-400"
       onClick={handleRegister}
-      disabled={registerStatus === "loading"}
+      disabled={
+        registerStatus === "loading" || socialSignInStatus === "loading"
+      }
     >
       {registerStatus === "loading" && (
         <span className="text-xl animate-spin">

@@ -4,7 +4,6 @@ import { defaultAvator } from "../../url";
 import { useSelector, useDispatch } from "react-redux";
 import { selectIsLoggedIn } from "../slices/userSlice";
 import LoginRegisterBtn from "./LoginRegisterBtn";
-import { toggleLogin } from "../slices/userSlice";
 import { RootState } from "../../store";
 
 interface Props {
@@ -25,10 +24,7 @@ const CartAndAccount = ({ setProfileShow, profileShow }: Props) => {
 
   return (
     <div className="flex gap-4 items-center">
-      <span
-        className="text-xl text-slate-700"
-        onClick={() => dispatch(toggleLogin())}
-      >
+      <span className="text-xl text-slate-700">
         <AiOutlineShoppingCart />
       </span>
       <div className={isLoggedIn ? inactiveClass : activeClass}>
