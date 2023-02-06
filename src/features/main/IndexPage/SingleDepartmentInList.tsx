@@ -10,7 +10,7 @@ interface Props {
 const SingleDepartmentInList = ({ fullName, shortName, picture }: Props) => {
   return (
     <div>
-      <Link to={`department/${shortName}`}>
+      <Link to={`department/${shortName}`} state={{ department: fullName }}>
         <img
           src={picture}
           alt="department"

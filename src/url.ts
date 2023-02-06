@@ -3,6 +3,9 @@ export const baseUrl = "http://localhost:5000/api/v1";
 export const defaultAvator =
   "https://ytu-reuseable-textbooks.s3.ap-southeast-1.amazonaws.com/default-avatar.png";
 
+export const defaultBookImg =
+  "https://ytu-reuseable-textbooks.s3.ap-southeast-1.amazonaws.com/default-book.jpg";
+
 export const civilImg =
   "https://ytu-reuseable-textbooks.s3.ap-southeast-1.amazonaws.com/major+photos/civil.jpg";
 
