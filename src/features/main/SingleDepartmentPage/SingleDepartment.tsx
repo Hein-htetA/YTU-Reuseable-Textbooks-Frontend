@@ -22,7 +22,7 @@ const SingleDepartment = () => {
   const { departmentId } = useParams();
 
   const status = useSelector(
-    (state: RootState) => state.book[departmentId!].status
+    (state: RootState) => state.book.departments[departmentId!].status
   );
 
   useEffect(() => {
@@ -44,7 +44,7 @@ const SingleDepartment = () => {
           >
             <Link
               to={`year/${index + 1}`}
-              state={{ ...state, year: yearArray[index + 1] }}
+              state={{ ...state, year: yearArray[index] }}
               className="w-full text-slate-800 flex p-3"
             >
               <AiFillFolderOpen className="text-2xl mr-3 text-slate-800" />

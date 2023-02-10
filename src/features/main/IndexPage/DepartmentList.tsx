@@ -1,94 +1,10 @@
 import React from "react";
-import {
-  archiImg,
-  ceitImg,
-  chemImg,
-  civilImg,
-  ecImg,
-  epImg,
-  foodImg,
-  mceImg,
-  mechImg,
-  metalImg,
-  miningImg,
-  textileImg,
-} from "../../../url";
-import SearchBox from "./SearchBox";
+import { departmentList } from "../../slices/bookSlice";
 import SingleDepartmentInList from "./SingleDepartmentInList";
-
-interface SingleDepartmentInterface {
-  fullName: string;
-  shortName: string;
-  picture: string;
-}
-
-export const departmentList: SingleDepartmentInterface[] = [
-  {
-    fullName: "Architecture",
-    shortName: "Arch",
-    picture: archiImg,
-  },
-  {
-    fullName: "Civil Engineering",
-    shortName: "C",
-    picture: civilImg,
-  },
-  {
-    fullName: "Chemical Engineering",
-    shortName: "ChE",
-    picture: chemImg,
-  },
-  {
-    fullName: "Computer Engineering and Information Technology",
-    shortName: "CEIT",
-    picture: ceitImg,
-  },
-  {
-    fullName: "Electronic Engineering",
-    shortName: "EC",
-    picture: ecImg,
-  },
-  {
-    fullName: "Electrical Power Engineering",
-    shortName: "EP",
-    picture: epImg,
-  },
-  {
-    fullName: "Food Engineering",
-    shortName: "FE",
-    picture: foodImg,
-  },
-  {
-    fullName: "Mechanical Engineering",
-    shortName: "Mech",
-    picture: mechImg,
-  },
-  {
-    fullName: "Mechatronic Engineering",
-    shortName: "McE",
-    picture: mceImg,
-  },
-  {
-    fullName: "Metallurgical Engineering",
-    shortName: "Met",
-    picture: metalImg,
-  },
-  {
-    fullName: "Mining Engineering",
-    shortName: "Mn",
-    picture: miningImg,
-  },
-  {
-    fullName: "Textile Engineering",
-    shortName: "Tex",
-    picture: textileImg,
-  },
-];
 
 const DepartmentList = () => {
   return (
-    <main className="">
-      <SearchBox />
+    <main className="px-5">
       <h1 className="text-xl text-slate-700 text-center uppercase px-6 border-b-2 border-slate-700 w-fit mx-auto pb-1">
         Departments
       </h1>

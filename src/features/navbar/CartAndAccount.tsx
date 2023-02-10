@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectIsLoggedIn } from "../slices/userSlice";
 import LoginRegisterBtn from "./LoginRegisterBtn";
 import { RootState } from "../../store";
+import { openCartModal } from "../slices/cartSlice";
 
 interface Props {
   setProfileShow: React.Dispatch<React.SetStateAction<boolean>>;
@@ -24,7 +25,10 @@ const CartAndAccount = ({ setProfileShow, profileShow }: Props) => {
 
   return (
     <div className="flex gap-4 items-center">
-      <span className="text-xl text-slate-700">
+      <span
+        className="text-xl text-slate-700 hover:cursor-pointer"
+        onClick={() => dispatch(openCartModal())}
+      >
         <AiOutlineShoppingCart />
       </span>
       <div className={isLoggedIn ? inactiveClass : activeClass}>

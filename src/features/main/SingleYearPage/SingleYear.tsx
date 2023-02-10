@@ -1,7 +1,8 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { RootState } from "../../../store";
+import { AppDispatch, RootState } from "../../../store";
+import { fetchBooksByDepartment } from "../../slices/bookSlice";
 import FailedFetchingBooksInYear from "./FailedFetchingBooksInYear";
 import LoadingBooksInYear from "./LoadingBooksInYear";
 import SingleBook from "./SingleBook";
@@ -9,14 +10,21 @@ import SingleBook from "./SingleBook";
 const SingleYear = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
-  const { departmentId } = useParams();
+  const { departmentId, year } = useParams();
+  const dispatch = useDispatch<AppDispatch>();
 
   const status = useSelector(
-    (state: RootState) => state.book[departmentId!].status
+    (state: RootState) => state.book.departments[departmentId!].status
   );
   const books = useSelector(
-    (state: RootState) => state.book[departmentId!].books
+    (state: RootState) => state.book.departments[departmentId!].books
   );
+
+  useEffect(() => {
+    if (status === "idle") {
+      dispatch(fetchBooksByDepartment(departmentId!));
+    }
+  }, [departmentId, dispatch]);
 
   return (
     <div className="px-5 min-h-screen">
@@ -34,15 +42,19 @@ const SingleYear = () => {
       ) : status === "failed" ? (
         <FailedFetchingBooksInYear />
       ) : (
-        <div className="grid grid-cols-2 gap-4 mx-auto sm:grid-cols-3 sm:gap-6 md:grid-cols-4 my-4 w-fit md:mr-auto md:ml-0">
-          {books.map((book) => (
-            <SingleBook
-              key={book._id}
-              year={state.year}
-              department={state.department}
-              bookInfo={book}
-            />
-          ))}
+        <div className="grid grid-cols-2 gap-4 mx-auto sm:grid-cols-3 sm:gap-6 md:grid-cols-4 my-4 w-fit md:mr-auto md:ml-0 mb-10">
+          {books
+            .filter((book) =>
+              book.year.some((year1) => year1 === parseInt(year!))
+            )
+            .map((book) => (
+              <SingleBook
+                key={book._id}
+                year={state.year}
+                department={state.department}
+                bookInfo={book}
+              />
+            ))}
         </div>
       )}
     </div>

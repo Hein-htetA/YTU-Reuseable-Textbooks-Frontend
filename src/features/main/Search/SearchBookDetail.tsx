@@ -1,30 +1,26 @@
 import React, { useEffect } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { AppDispatch, RootState } from "../../../store";
+import { defaultBookImg } from "../../../url";
+import { markBookFromSearchResults } from "../../slices/bookSlice";
+import { addToCart } from "../../slices/cartSlice";
 import {
   AiOutlineDoubleRight,
   AiOutlineClockCircle,
   AiOutlineShoppingCart,
 } from "react-icons/ai";
-import { defaultBookImg } from "../../../url";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../../store";
-import { addToCart } from "../../slices/cartSlice";
-import { markBookAsInCart } from "../../slices/bookSlice";
 
 const addToCartClass =
   "text-xs w-full rounded-xl border-2 border-slate-500 text-slate-500 py-2 font-bold flex items-center justify-center uppercase";
 const inCartClass =
   "text-xs w-full rounded-xl border-2 border-pink-600 bg-pink-600 text-white py-2 font-bold flex items-center justify-center uppercase";
 
-const SingleBookDetail = () => {
-  const { state } = useLocation();
-  const { departmentId, bookId } = useParams();
-  const { department, year } = state;
+const SearchBookDetail = () => {
+  const { bookId } = useParams();
 
   const book = useSelector((state: RootState) =>
-    state.book.departments[departmentId!].books.find(
-      (book) => book._id === bookId
-    )
+    state.book.searchResults.find((book) => book._id === bookId)
   );
 
   const navigate = useNavigate();
@@ -32,7 +28,7 @@ const SingleBookDetail = () => {
 
   const handleAddToCart = () => {
     dispatch(addToCart(book));
-    dispatch(markBookAsInCart({ departmentId, bookId: book?._id }));
+    dispatch(markBookFromSearchResults(bookId));
   };
 
   useEffect(() => {
@@ -43,19 +39,6 @@ const SingleBookDetail = () => {
 
   return (
     <div className="px-5 min-h-screen">
-      {department && (
-        <h3
-          className="text-lg text-slate-700 text-center capitalize px-3 border-b-2 border-slate-700 w-fit mx-auto pb-1 mt-5 mb-1 font-bold hover:cursor-pointer"
-          onClick={() => navigate(-2)}
-        >
-          {department}
-        </h3>
-      )}
-      {year && (
-        <div className="px-2 pb-1 border-b-2 border-slate-600 w-fit my-2 font-bold">
-          {year}
-        </div>
-      )}
       <div className="flex flex-col my-6 sm:grid sm:grid-cols-[auto_1fr] gap-4 ">
         <img
           src={book?.bookPhotoUrl || defaultBookImg}
@@ -108,4 +91,4 @@ const SingleBookDetail = () => {
   );
 };
 
-export default SingleBookDetail;
+export default SearchBookDetail;

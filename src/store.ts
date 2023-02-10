@@ -1,12 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import logoutMiddleware from "./features/middleware/logoutMiddleware";
-import bookSlice from "./features/slices/bookSlice";
-import userSlice from "./features/slices/userSlice";
+import bookReducer from "./features/slices/bookSlice";
+import cartReducer from "./features/slices/cartSlice";
+import userReducer from "./features/slices/userSlice";
 
 const store = configureStore({
   reducer: {
-    user: userSlice,
-    book: bookSlice,
+    user: userReducer,
+    book: bookReducer,
+    cart: cartReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().prepend(logoutMiddleware.middleware),
