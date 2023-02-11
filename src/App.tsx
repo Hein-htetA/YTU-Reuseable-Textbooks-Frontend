@@ -1,6 +1,8 @@
 import React from "react";
 import { Route, Routes } from "react-router";
 import { BrowserRouter } from "react-router-dom";
+import Cart from "./features/main/Cart/Cart";
+import CartBookDetail from "./features/main/Cart/CartBookDetail";
 import DepartmentList from "./features/main/IndexPage/DepartmentList";
 import SearchBookDetail from "./features/main/Search/SearchBookDetail";
 import SearchResults from "./features/main/Search/SearchResults";
@@ -15,6 +17,8 @@ function App() {
       <Routes>
         <Route path="/" element={<MainSharedLayout />}>
           <Route index element={<DepartmentList />} />
+          <Route path="cart" element={<Cart />} />
+          <Route path="cart/cart-book-detail" element={<CartBookDetail />} />
           <Route path="search" element={<SearchResults />} />
           <Route path="search/:bookId" element={<SearchBookDetail />} />
           <Route

@@ -42,7 +42,7 @@ const SingleYear = () => {
       ) : status === "failed" ? (
         <FailedFetchingBooksInYear />
       ) : (
-        <div className="grid grid-cols-2 gap-4 mx-auto sm:grid-cols-3 sm:gap-6 md:grid-cols-4 my-4 w-fit md:mr-auto md:ml-0 mb-10">
+        <div className="grid grid-cols-2 gap-4 mx-auto sm:grid-cols-3 sm:gap-6 md:grid-cols-4 my-4 w-fit lg:grid-cols-6 mb-10">
           {books
             .filter((book) =>
               book.year.some((year1) => year1 === parseInt(year!))

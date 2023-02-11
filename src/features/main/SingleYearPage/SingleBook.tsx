@@ -5,7 +5,11 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../store";
 import { addToCart } from "../../slices/cartSlice";
-import { Book, markBookAsInCart } from "../../slices/bookSlice";
+import {
+  Book,
+  markBookAsInCart,
+  markBookFromSearchResults,
+} from "../../slices/bookSlice";
 
 interface Props {
   department?: string;
@@ -24,7 +28,11 @@ const SingleBook = ({ department, year, bookInfo }: Props) => {
 
   const handleAddToCart = () => {
     dispatch(addToCart(bookInfo));
-    dispatch(markBookAsInCart({ departmentId, bookId: bookInfo._id }));
+    if (departmentId) {
+      dispatch(markBookAsInCart({ departmentId, bookId: bookInfo._id })); //for department fetch result
+    } else {
+      dispatch(markBookFromSearchResults(bookInfo._id)); //for search fetch result
+    }
   };
   return (
     <div className="w-40 flex flex-col ">

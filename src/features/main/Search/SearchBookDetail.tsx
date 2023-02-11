@@ -9,6 +9,7 @@ import {
   AiOutlineDoubleRight,
   AiOutlineClockCircle,
   AiOutlineShoppingCart,
+  AiOutlineLeft,
 } from "react-icons/ai";
 
 const addToCartClass =
@@ -87,6 +88,13 @@ const SearchBookDetail = () => {
           </div>
         </div>
       </div>
+      <button
+        className="flex px-2 py-1 fixed left-5 bottom-5 bg-slate-600 text-white items-center rounded-md "
+        onClick={() => navigate(-1)}
+      >
+        <AiOutlineLeft />
+        <div>Go Back</div>
+      </button>
     </div>
   );
 };

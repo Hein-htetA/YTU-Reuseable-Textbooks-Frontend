@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+import cartMiddleware from "./features/middleware/cartMiddleware";
 import logoutMiddleware from "./features/middleware/logoutMiddleware";
 import bookReducer from "./features/slices/bookSlice";
 import cartReducer from "./features/slices/cartSlice";
@@ -11,7 +12,10 @@ const store = configureStore({
     cart: cartReducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().prepend(logoutMiddleware.middleware),
+    getDefaultMiddleware().prepend(
+      logoutMiddleware.middleware,
+      cartMiddleware.middleware
+    ),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

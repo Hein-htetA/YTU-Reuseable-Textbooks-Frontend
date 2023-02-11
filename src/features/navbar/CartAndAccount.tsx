@@ -1,11 +1,11 @@
 import React from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { defaultAvator } from "../../url";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { selectIsLoggedIn } from "../slices/userSlice";
 import LoginRegisterBtn from "./LoginRegisterBtn";
 import { RootState } from "../../store";
-import { openCartModal } from "../slices/cartSlice";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   setProfileShow: React.Dispatch<React.SetStateAction<boolean>>;
@@ -21,13 +21,13 @@ const CartAndAccount = ({ setProfileShow, profileShow }: Props) => {
   const userProfile = useSelector(
     (state: RootState) => state.user.userData.picture
   );
-  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   return (
     <div className="flex gap-4 items-center">
       <span
         className="text-xl text-slate-700 hover:cursor-pointer"
-        onClick={() => dispatch(openCartModal())}
+        onClick={() => navigate("cart")}
       >
         <AiOutlineShoppingCart />
       </span>

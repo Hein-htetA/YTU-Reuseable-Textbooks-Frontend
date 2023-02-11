@@ -1,5 +1,6 @@
 import React, { useRef, MouseEvent, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { AppDispatch } from "../../../store";
 import { defaultBookImg } from "../../../url";
 import {
@@ -29,6 +30,8 @@ const AddToCartModel = () => {
   const modalRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch<AppDispatch>();
 
+  const navigate = useNavigate();
+
   const handleClickOutside = useCallback(
     (e: MouseEvent) => {
       if (!modalRef.current!.contains(e.target as Node)) {
@@ -37,6 +40,11 @@ const AddToCartModel = () => {
     },
     [dispatch]
   );
+
+  const clickCheckout = () => {
+    dispatch(closeCartModal());
+    navigate("/cart");
+  };
 
   useEffect(() => {
     if (cartModalOpen) {
@@ -71,7 +79,10 @@ const AddToCartModel = () => {
           >
             keep shoping
           </button>
-          <button className="py-2 rounded-full bg-slate-500 uppercase border-2 border-slate-500 text-white">
+          <button
+            className="py-2 rounded-full bg-slate-500 uppercase border-2 border-slate-500 text-white"
+            onClick={clickCheckout}
+          >
             check out
           </button>
         </div>

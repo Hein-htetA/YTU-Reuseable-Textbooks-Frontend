@@ -157,8 +157,14 @@ const fetchBooksByDepartment = createAsyncThunk<
         throw new Error();
       }
       const { booksByDepartment } = await response.json();
+      const cartItems = getState().cart.items;
       const booksWithStatus = booksByDepartment.map((book: any) => {
-        book.status = "idle";
+        //check item is in cart
+        if (cartItems.some((cartBook) => cartBook._id === book._id)) {
+          book.status = "cart";
+        } else {
+          book.status = "idle";
+        }
         return book;
       });
       return booksWithStatus;
@@ -189,8 +195,14 @@ const searchBookByTitle = createAsyncThunk<
       throw new Error();
     }
     const { books } = await response.json();
+    const cartItems = getState().cart.items;
     const booksWithStatus = books.map((book: any) => {
-      book.status = "idle";
+      //check book in cart
+      if (cartItems.some((cartBook) => cartBook._id === book._id)) {
+        book.status = "cart";
+      } else {
+        book.status = "idle";
+      }
       return book;
     });
     return booksWithStatus;

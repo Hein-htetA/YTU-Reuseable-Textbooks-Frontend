@@ -1,6 +1,6 @@
 import React, { useState, useRef, useCallback, useEffect } from "react";
 import Navbar from "../features/navbar/Navbar";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Footer from "../features/footer/Footer";
 import ScrollToTop from "./ScrollToTop";
 import SearchBox from "../features/main/Search/SearchBox";
@@ -17,7 +17,7 @@ type auth = "login" | "register";
 
 const MainSharedLayout = () => {
   const [loginOrRegister, setLoginOrRegister] = useState<auth>("login");
-  const cartModalOpen = useSelector(SelectCartModalOpen);
+  const path = useLocation();
   const authenticationModalOpen: boolean = useSelector(
     (state: RootState) => state.user.authenticationModalOpen
   );
@@ -51,7 +51,8 @@ const MainSharedLayout = () => {
     <div className="flex flex-col min-h-screen">
       <ScrollToTop />
       <Navbar />
-      <SearchBox />
+      {path.pathname !== "/cart" &&
+        path.pathname !== "/cart/cart-book-detail" && <SearchBox />}
       {authenticationModalOpen && <AuthenticationModalBackground />}
       <LoginForm
         loginOrRegister={loginOrRegister}
