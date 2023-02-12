@@ -11,13 +11,23 @@ const initializeFun = () => {
     sessionStorage.getItem("items") !== null
       ? JSON.parse(sessionStorage.getItem("items")!)
       : [];
+  const { amount, count } = items.reduce(
+    (accumulator, currentValue) => {
+      const amount =
+        accumulator.amount + currentValue.price * currentValue.count;
+      const count = accumulator.count + currentValue.count;
+      return { amount, count };
+    },
+    { amount: 0, count: 0 }
+  );
 
   return {
     items,
     cartModalOpen: false,
     cartModal: {} as Book,
-    totalCount: 0,
-    totalAmount: 0,
+    totalCount: count,
+    totalAmount: amount,
+    checkoutModalOpen: false,
   };
 };
 
@@ -30,6 +40,12 @@ const cartSlice = createSlice({
     },
     closeCartModal: (state) => {
       state.cartModalOpen = false;
+    },
+    closeCheckoutModal: (state) => {
+      state.checkoutModalOpen = false;
+    },
+    openCheckoutModal: (state) => {
+      state.checkoutModalOpen = true;
     },
     addToCart: (state, action) => {
       const index = state.items.findIndex(
@@ -62,6 +78,9 @@ const cartSlice = createSlice({
     removeFromCart: (state, action) => {
       state.items = state.items.filter((book) => book._id !== action.payload);
     },
+    clearCart: (state) => {
+      state.items = [];
+    },
     calculateTotal: (state) => {
       const { amount, count } = state.items.reduce(
         (accumulator, currentValue) => {
@@ -83,6 +102,8 @@ const SelectCartModal = (state: RootState) => state.cart.cartModal;
 const SelectTotalAmount = (state: RootState) => state.cart.totalAmount;
 const SelectTotalCount = (state: RootState) => state.cart.totalCount;
 const SelectItems = (state: RootState) => state.cart.items;
+const SelectCheckoutModalOpen = (state: RootState) =>
+  state.cart.checkoutModalOpen;
 
 export {
   SelectCartModalOpen,
@@ -90,15 +111,19 @@ export {
   SelectTotalAmount,
   SelectTotalCount,
   SelectItems,
+  SelectCheckoutModalOpen,
 };
 
 export const {
   openCartModal,
+  openCheckoutModal,
   closeCartModal,
+  closeCheckoutModal,
   addToCart,
   calculateTotal,
   increaseCount,
   decreaseCount,
   removeFromCart,
+  clearCart,
 } = cartSlice.actions;
 export default cartSlice.reducer;

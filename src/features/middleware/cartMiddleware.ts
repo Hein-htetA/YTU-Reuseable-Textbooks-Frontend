@@ -8,6 +8,7 @@ import { AppDispatch, RootState } from "../../store";
 import {
   addToCart,
   calculateTotal,
+  clearCart,
   decreaseCount,
   increaseCount,
   removeFromCart,
@@ -26,7 +27,13 @@ export const addAppListener = addListener as TypedAddListener<
 >;
 
 startAppListening({
-  matcher: isAnyOf(addToCart, increaseCount, decreaseCount, removeFromCart),
+  matcher: isAnyOf(
+    addToCart,
+    increaseCount,
+    decreaseCount,
+    removeFromCart,
+    clearCart
+  ),
   effect: (action, listenerApi) => {
     listenerApi.dispatch(calculateTotal());
     sessionStorage.setItem(

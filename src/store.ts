@@ -3,6 +3,7 @@ import cartMiddleware from "./features/middleware/cartMiddleware";
 import logoutMiddleware from "./features/middleware/logoutMiddleware";
 import bookReducer from "./features/slices/bookSlice";
 import cartReducer from "./features/slices/cartSlice";
+import orderReducer from "./features/slices/orderSlice";
 import userReducer from "./features/slices/userSlice";
 
 const store = configureStore({
@@ -10,6 +11,7 @@ const store = configureStore({
     user: userReducer,
     book: bookReducer,
     cart: cartReducer,
+    order: orderReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().prepend(

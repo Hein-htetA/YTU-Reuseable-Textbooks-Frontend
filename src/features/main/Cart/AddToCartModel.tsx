@@ -62,7 +62,7 @@ const AddToCartModel = () => {
         <div className="grid grid-cols-2 gap-3 mb-4">
           <img src={defaultBookImg} alt="book" className="rounded-md" />
           <div className="flex flex-col text-sm">
-            <div className="text-base font-bold mb-2">
+            <div className="text-base font-bold mb-2 capitalize">
               {cartModal.title + "(" + cartModal.edition + ")"}
             </div>
             <div className="mb-6">Is now in your cart.</div>

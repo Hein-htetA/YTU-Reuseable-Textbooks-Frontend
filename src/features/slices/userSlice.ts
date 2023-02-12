@@ -3,6 +3,7 @@ import { RootState } from "../../store";
 import { baseUrl } from "../../url";
 
 interface User {
+  _id?: string;
   name?: string;
   email?: string;
   picture?: string;

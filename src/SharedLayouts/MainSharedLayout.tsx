@@ -12,6 +12,7 @@ import { closeAuthenticationModal } from "../features/slices/userSlice";
 import AuthenticationModalBackground from "../features/authentication/AuthenticationModal";
 import LoginForm from "../features/authentication/login/LoginForm";
 import RegisterForm from "../features/authentication/register/RegisterForm";
+import CheckoutFormModal from "../features/main/Cart/CheckoutFormModal";
 
 type auth = "login" | "register";
 
@@ -52,7 +53,8 @@ const MainSharedLayout = () => {
       <ScrollToTop />
       <Navbar />
       {path.pathname !== "/cart" &&
-        path.pathname !== "/cart/cart-book-detail" && <SearchBox />}
+        path.pathname !== "/cart/cart-book-detail" &&
+        path.pathname !== "/cart/order-history" && <SearchBox />}
       {authenticationModalOpen && <AuthenticationModalBackground />}
       <LoginForm
         loginOrRegister={loginOrRegister}
@@ -65,6 +67,7 @@ const MainSharedLayout = () => {
         ref={registerFormRef}
       />
       <AddToCartModel />
+      <CheckoutFormModal />
       <Outlet />
       <Footer />
     </div>
