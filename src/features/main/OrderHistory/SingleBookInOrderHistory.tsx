@@ -19,7 +19,7 @@ const SingleBookInGrid = ({ title, edition, count, price }: Props) => {
 
 const SingleBookInOrderHistory = ({ books }: any) => {
   return (
-    <div className="grid grid-cols-[auto_1fr_1fr] gap-x-3 gap-y-1 mb-2 text-xs sm:text-sm">
+    <div className="grid grid-cols-[auto_1fr_1fr] gap-x-3 gap-y-1 mb-1 text-xs sm:text-sm">
       <div className="capitalize border-b border-slate-500 pb-1 font-bold text-sm">
         Title
       </div>

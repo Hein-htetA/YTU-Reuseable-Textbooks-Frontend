@@ -33,7 +33,7 @@ const SingleDepartment = () => {
 
   return (
     <div className="grow mb-8">
-      <h3 className="text-lg text-slate-700 text-center capitalize px-3 border-b-2 border-slate-700 w-fit mx-auto pb-1 mt-5 mb-1 font-bold">
+      <h3 className="text-lg text-slate-700 text-center capitalize w-fit mx-auto font-bold">
         {state.department}
       </h3>
       <ul className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 p-3 px-5 gap-3">

@@ -16,9 +16,6 @@ const OrderHistory = () => {
   const orderHistoryStatus = useSelector(SelectOrderHistoryStatus);
   const orderHistory = useSelector(SelectOrderHistory);
   const dispatch = useDispatch<AppDispatch>();
-  useEffect(() => {
-    dispatch(fetchOrderHistory(""));
-  }, []);
 
   return (
     <div className="p-5 min-h-screen ">
@@ -33,7 +30,6 @@ const OrderHistory = () => {
           <RxDoubleArrowLeft className="text-lg" />
           <div>Back To Cart</div>
         </Link>
-        {}
         {orderHistoryStatus === "loading" ? (
           <OrderHistoryLoading />
         ) : orderHistoryStatus === "failed" ? (

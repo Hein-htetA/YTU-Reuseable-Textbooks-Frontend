@@ -1,12 +1,15 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { AppDispatch, RootState } from "../../store";
 import { baseUrl } from "../../url";
+import { resetToInitailState } from "./bookSlice";
 import { clearCart } from "./cartSlice";
 
 interface InitialState {
   orderHistoryStatus: "idle" | "loading" | "succeeded" | "failed";
   orderHistory: any;
   addNewOrderStatus: "idle" | "loading" | "succeeded" | "failed";
+  errorMessage: string;
+  checkoutModalOpen: boolean;
 }
 
 interface Contacts {
@@ -20,6 +23,8 @@ const initialState: InitialState = {
   orderHistoryStatus: "idle",
   orderHistory: [],
   addNewOrderStatus: "idle",
+  errorMessage: "",
+  checkoutModalOpen: false,
 };
 
 const addNewOrder = createAsyncThunk<
@@ -41,7 +46,8 @@ const addNewOrder = createAsyncThunk<
       },
       body: JSON.stringify({
         ...formValues,
-        userId: getState().user.userData._id,
+        customerId: getState().user.userData._id,
+        customerName: getState().user.userData.name,
         books,
         totalAmount: getState().cart.totalAmount,
       }),
@@ -49,13 +55,18 @@ const addNewOrder = createAsyncThunk<
     try {
       const response = await fetch(`${baseUrl}/order`, requestOptions);
       if (!response.ok) {
-        throw new Error();
+        if (response.status === 400) {
+          const { msg } = await response.json();
+          throw new Error(msg);
+        }
+        throw new Error("");
       }
       const { order } = await response.json();
       dispatch(clearCart());
+      dispatch(resetToInitailState());
       return order;
-    } catch (error) {
-      return rejectWithValue("");
+    } catch (error: any) {
+      return rejectWithValue(error.message);
     }
   }
 );
@@ -91,7 +102,12 @@ const fetchOrderHistory = createAsyncThunk<
 const orderSlice = createSlice({
   name: "order",
   initialState,
-  reducers: {},
+  reducers: {
+    closeCheckoutModal: (state) => {
+      state.checkoutModalOpen = false;
+      state.errorMessage = "";
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchOrderHistory.pending, (state) => {
@@ -110,9 +126,11 @@ const orderSlice = createSlice({
       })
       .addCase(addNewOrder.fulfilled, (state, action) => {
         state.addNewOrderStatus = "succeeded";
-        state.orderHistory.push(action.payload);
+        state.orderHistory.unshift(action.payload);
       })
-      .addCase(addNewOrder.rejected, (state) => {
+      .addCase(addNewOrder.rejected, (state, action) => {
+        state.errorMessage = action.payload!;
+        state.checkoutModalOpen = true;
         state.addNewOrderStatus = "failed";
       });
   },
@@ -121,9 +139,22 @@ const orderSlice = createSlice({
 const SelectOrderHistoryStatus = (state: RootState) =>
   state.order.orderHistoryStatus;
 const SelectOrderHistory = (state: RootState) => state.order.orderHistory;
+const SelectAddNewOrderStatus = (state: RootState) =>
+  state.order.addNewOrderStatus;
+const SelectCheckoutModalOpen = (state: RootState) =>
+  state.order.checkoutModalOpen;
+const SelectErrorMessage = (state: RootState) => state.order.errorMessage;
 
-export { SelectOrderHistory, SelectOrderHistoryStatus };
+export {
+  SelectOrderHistory,
+  SelectOrderHistoryStatus,
+  SelectAddNewOrderStatus,
+  SelectCheckoutModalOpen,
+  SelectErrorMessage,
+};
 
 export { fetchOrderHistory, addNewOrder };
+
+export const { closeCheckoutModal } = orderSlice.actions;
 
 export default orderSlice.reducer;

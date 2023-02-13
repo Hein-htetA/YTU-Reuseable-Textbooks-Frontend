@@ -20,6 +20,7 @@ const SingleYear = () => {
     (state: RootState) => state.book.departments[departmentId!].books
   );
 
+  //this useeffect is to fetch when reloading in this route
   useEffect(() => {
     if (status === "idle") {
       dispatch(fetchBooksByDepartment(departmentId!));

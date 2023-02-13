@@ -6,7 +6,10 @@
 
 @layer utilities {
   .clip-img-avator {
-    clip-path: circle(20%);
+    clip-path: circle(30%);
+  }
+  .clip-count {
+    clip-path: circle(40%);
   }
 }
 

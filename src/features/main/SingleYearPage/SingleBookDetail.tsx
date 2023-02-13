@@ -92,7 +92,7 @@ const SingleBookDetail = () => {
           </div>
           <div>
             {book?.status === "cart" ? (
-              <button className={inCartClass}>
+              <button className={inCartClass} onClick={() => navigate("/cart")}>
                 <AiOutlineShoppingCart className="text-lg mr-2" />
                 <div>in cart</div>
               </button>

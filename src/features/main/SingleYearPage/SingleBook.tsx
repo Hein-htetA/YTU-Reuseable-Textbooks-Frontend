@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import { defaultBookImg } from "../../../url";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { useDispatch } from "react-redux";
@@ -25,6 +25,8 @@ const inCartClass =
 const SingleBook = ({ department, year, bookInfo }: Props) => {
   const { departmentId, year: yearId } = useParams();
   const dispatch = useDispatch<AppDispatch>();
+
+  const navigate = useNavigate();
 
   const handleAddToCart = () => {
     dispatch(addToCart(bookInfo));
@@ -62,7 +64,7 @@ const SingleBook = ({ department, year, bookInfo }: Props) => {
       <div className="text-sm text-pink-600 mb-3">{bookInfo.price} Kyats</div>
       <div>
         {bookInfo.status === "cart" ? (
-          <button className={inCartClass}>
+          <button className={inCartClass} onClick={() => navigate("/cart")}>
             <AiOutlineShoppingCart className="text-lg mr-2" />
             <div>in cart</div>
           </button>

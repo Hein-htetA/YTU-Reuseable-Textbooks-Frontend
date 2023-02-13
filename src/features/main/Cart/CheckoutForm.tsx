@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../../store";
-import { openCheckoutModal } from "../../slices/cartSlice";
-import { addNewOrder } from "../../slices/orderSlice";
+import { addNewOrder, SelectAddNewOrderStatus } from "../../slices/orderSlice";
+import { BsArrowClockwise } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 
 const errorClass =
   "decoration-red-500 underline mb-2 underline-offset-4 decoration-2";
@@ -25,9 +26,13 @@ const CheckoutForm = () => {
 
   const [formError, setFormError] = useState(false);
 
+  const addNewOrderStatus = useSelector(SelectAddNewOrderStatus);
+
   const dispatch = useDispatch<AppDispatch>();
 
-  const handleConfirmOrder = () => {
+  const navigate = useNavigate();
+
+  const handleConfirmOrder = async () => {
     let error = true;
     for (let i in formValues) {
       if (formValues[i as keyof CheckoutFormInterface].trim().length !== 0) {
@@ -39,7 +44,12 @@ const CheckoutForm = () => {
       setFormError(true);
       return;
     }
-    dispatch(addNewOrder(formValues));
+    try {
+      await dispatch(addNewOrder(formValues)).unwrap();
+      navigate("/cart/order-history");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,7 +64,7 @@ const CheckoutForm = () => {
       </div>
       <div className="flex gap-4 items-center text-sm">
         <label htmlFor="phoneNo" className="w-20">
-          Phone:{" "}
+          Phone:
         </label>
         <input
           type="text"
@@ -105,10 +115,14 @@ const CheckoutForm = () => {
         />
       </div>
       <button
-        className="py-1 my-3 px-3 bg-slate-600 text-white rounded-lg w-full max-w-md self-center"
+        className="py-2 my-3 px-3 bg-slate-600 text-white rounded-lg w-full max-w-md self-center flex justify-center gap-1 items-center disabled:bg-slate-400"
         onClick={handleConfirmOrder}
+        disabled={addNewOrderStatus === "loading"}
       >
-        Confirm Order
+        {addNewOrderStatus === "loading" && (
+          <BsArrowClockwise className="text-2xl animate-spin" />
+        )}
+        <div>Confirm Order</div>
       </button>
     </div>
   );

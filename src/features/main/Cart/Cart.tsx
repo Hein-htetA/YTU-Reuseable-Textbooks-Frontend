@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { SelectItems, SelectTotalAmount } from "../../slices/cartSlice";
 import CheckoutForm from "./CheckoutForm";
@@ -10,6 +10,12 @@ const Cart = () => {
   const [isCheckout, setIsCheckout] = useState(false);
   const itemsInCart = useSelector(SelectItems);
   const totalAmount = useSelector(SelectTotalAmount);
+
+  useEffect(() => {
+    if (itemsInCart.length < 1) {
+      setIsCheckout(false);
+    }
+  }, [itemsInCart.length]);
   return (
     <div className="px-5 py-5 w-full max-w-3xl mx-auto text-sm min-h-screen">
       <div className="text-lg flex justify-between items-center font-bold mb-4">

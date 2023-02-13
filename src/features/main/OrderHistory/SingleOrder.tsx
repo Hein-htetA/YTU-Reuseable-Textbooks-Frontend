@@ -20,7 +20,7 @@ const SingleOrder = ({ books, orderId, status, date, totalAmount }: Props) => {
             <span className="text-pink-500  font-bold capitalize ml-1">
               {status}
             </span>
-          ) : status === "finalized" ? (
+          ) : status === "completed" ? (
             <span className="text-green-600 font-bold capitalize ml-1">
               {status}
             </span>

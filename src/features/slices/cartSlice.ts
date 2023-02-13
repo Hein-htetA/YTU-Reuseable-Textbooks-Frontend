@@ -27,7 +27,6 @@ const initializeFun = () => {
     cartModal: {} as Book,
     totalCount: count,
     totalAmount: amount,
-    checkoutModalOpen: false,
   };
 };
 
@@ -40,12 +39,6 @@ const cartSlice = createSlice({
     },
     closeCartModal: (state) => {
       state.cartModalOpen = false;
-    },
-    closeCheckoutModal: (state) => {
-      state.checkoutModalOpen = false;
-    },
-    openCheckoutModal: (state) => {
-      state.checkoutModalOpen = true;
     },
     addToCart: (state, action) => {
       const index = state.items.findIndex(
@@ -102,8 +95,6 @@ const SelectCartModal = (state: RootState) => state.cart.cartModal;
 const SelectTotalAmount = (state: RootState) => state.cart.totalAmount;
 const SelectTotalCount = (state: RootState) => state.cart.totalCount;
 const SelectItems = (state: RootState) => state.cart.items;
-const SelectCheckoutModalOpen = (state: RootState) =>
-  state.cart.checkoutModalOpen;
 
 export {
   SelectCartModalOpen,
@@ -111,14 +102,11 @@ export {
   SelectTotalAmount,
   SelectTotalCount,
   SelectItems,
-  SelectCheckoutModalOpen,
 };
 
 export const {
   openCartModal,
-  openCheckoutModal,
   closeCartModal,
-  closeCheckoutModal,
   addToCart,
   calculateTotal,
   increaseCount,

@@ -13,6 +13,7 @@ import AuthenticationModalBackground from "../features/authentication/Authentica
 import LoginForm from "../features/authentication/login/LoginForm";
 import RegisterForm from "../features/authentication/register/RegisterForm";
 import CheckoutFormModal from "../features/main/Cart/CheckoutFormModal";
+import { fetchOrderHistory } from "../features/slices/orderSlice";
 
 type auth = "login" | "register";
 
@@ -47,6 +48,10 @@ const MainSharedLayout = () => {
       document.removeEventListener("mousedown", closeModal);
     }
   }, [authenticationModalOpen, closeModal]);
+
+  useEffect(() => {
+    dispatch(fetchOrderHistory(""));
+  }, []);
 
   return (
     <div className="flex flex-col min-h-screen">

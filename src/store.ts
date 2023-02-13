@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import cartMiddleware from "./features/middleware/cartMiddleware";
+import cartUnmarkMiddleware from "./features/middleware/cartUnmarkMiddleware";
 import logoutMiddleware from "./features/middleware/logoutMiddleware";
 import bookReducer from "./features/slices/bookSlice";
 import cartReducer from "./features/slices/cartSlice";
@@ -16,7 +17,8 @@ const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().prepend(
       logoutMiddleware.middleware,
-      cartMiddleware.middleware
+      cartMiddleware.middleware,
+      cartUnmarkMiddleware.middleware
     ),
 });
 

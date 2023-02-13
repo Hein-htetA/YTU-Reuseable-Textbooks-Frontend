@@ -230,6 +230,17 @@ const bookSlice = createSlice({
       );
       state.searchResults[index].status = "cart";
     },
+    unmarkBookAsInCart: (state, action) => {
+      for (let department in state.departments) {
+        const index = state.departments[department].books.findIndex(
+          (book) => book._id === action.payload
+        );
+        if (index !== -1) {
+          state.departments[department].books[index].status = "idle";
+        }
+      }
+    },
+    resetToInitailState: () => initialState,
   },
   extraReducers(builder) {
     builder
@@ -263,7 +274,11 @@ const SelectSearchResults = (state: RootState) => state.book.searchResults;
 export { SelectSearchResults, SelectSearchStatus };
 export { fetchBooksByDepartment, searchBookByTitle };
 
-export const { markBookAsInCart, markBookFromSearchResults } =
-  bookSlice.actions;
+export const {
+  markBookAsInCart,
+  unmarkBookAsInCart,
+  markBookFromSearchResults,
+  resetToInitailState,
+} = bookSlice.actions;
 
 export default bookSlice.reducer;
