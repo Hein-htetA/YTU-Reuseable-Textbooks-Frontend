@@ -4,6 +4,10 @@ import { AppDispatch } from "../../../store";
 import { addNewOrder, SelectAddNewOrderStatus } from "../../slices/orderSlice";
 import { BsArrowClockwise } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
+import {
+  openAuthenticationModal,
+  selectIsLoggedIn,
+} from "../../slices/userSlice";
 
 const errorClass =
   "decoration-red-500 underline mb-2 underline-offset-4 decoration-2";
@@ -27,12 +31,17 @@ const CheckoutForm = () => {
   const [formError, setFormError] = useState(false);
 
   const addNewOrderStatus = useSelector(SelectAddNewOrderStatus);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
 
   const dispatch = useDispatch<AppDispatch>();
 
   const navigate = useNavigate();
 
   const handleConfirmOrder = async () => {
+    if (!isLoggedIn) {
+      dispatch(openAuthenticationModal());
+      return;
+    }
     let error = true;
     for (let i in formValues) {
       if (formValues[i as keyof CheckoutFormInterface].trim().length !== 0) {

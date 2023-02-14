@@ -8,7 +8,10 @@ import AddToCartModel from "../features/main/Cart/AddToCartModel";
 import { useDispatch, useSelector } from "react-redux";
 import { SelectCartModalOpen } from "../features/slices/cartSlice";
 import { AppDispatch, RootState } from "../store";
-import { closeAuthenticationModal } from "../features/slices/userSlice";
+import {
+  closeAuthenticationModal,
+  selectIsLoggedIn,
+} from "../features/slices/userSlice";
 import AuthenticationModalBackground from "../features/authentication/AuthenticationModal";
 import LoginForm from "../features/authentication/login/LoginForm";
 import RegisterForm from "../features/authentication/register/RegisterForm";
@@ -23,6 +26,8 @@ const MainSharedLayout = () => {
   const authenticationModalOpen: boolean = useSelector(
     (state: RootState) => state.user.authenticationModalOpen
   );
+
+  const isLoggedIn = useSelector(selectIsLoggedIn);
 
   const loginFormRef = useRef<HTMLDivElement>(null);
   const registerFormRef = useRef<HTMLDivElement>(null);
@@ -50,6 +55,7 @@ const MainSharedLayout = () => {
   }, [authenticationModalOpen, closeModal]);
 
   useEffect(() => {
+    if (!isLoggedIn) return;
     dispatch(fetchOrderHistory(""));
   }, []);
 
@@ -57,9 +63,8 @@ const MainSharedLayout = () => {
     <div className="flex flex-col min-h-screen">
       <ScrollToTop />
       <Navbar />
-      {path.pathname !== "/cart" &&
-        path.pathname !== "/cart/cart-book-detail" &&
-        path.pathname !== "/cart/order-history" && <SearchBox />}
+
+      {!new RegExp("/cart").test(path.pathname) && <SearchBox />}
       {authenticationModalOpen && <AuthenticationModalBackground />}
       <LoginForm
         loginOrRegister={loginOrRegister}

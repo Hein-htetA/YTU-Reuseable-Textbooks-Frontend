@@ -3,6 +3,7 @@ import { AppDispatch, RootState } from "../../store";
 import { baseUrl } from "../../url";
 import { resetToInitailState } from "./bookSlice";
 import { clearCart } from "./cartSlice";
+import { openAuthenticationModal } from "./userSlice";
 
 interface InitialState {
   orderHistoryStatus: "idle" | "loading" | "succeeded" | "failed";
@@ -85,7 +86,7 @@ const fetchOrderHistory = createAsyncThunk<
   };
   try {
     const response: any = await fetch(
-      `${baseUrl}/order/${getState().user.userData._id}`,
+      `${baseUrl}/order/id/${getState().user.userData._id}`,
       requestOptions
     );
     if (!response.ok) {

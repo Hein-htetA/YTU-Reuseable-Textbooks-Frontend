@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { access } from "fs";
 import { RootState } from "../../store";
 import { baseUrl } from "../../url";
 import {
@@ -145,7 +144,6 @@ const fetchBooksByDepartment = createAsyncThunk<
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${getState().user.token}`,
       },
     };
     try {
@@ -183,7 +181,6 @@ const searchBookByTitle = createAsyncThunk<
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${getState().user.token}`,
     },
   };
   try {

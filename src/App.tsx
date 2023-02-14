@@ -10,6 +10,7 @@ import SearchResults from "./features/main/Search/SearchResults";
 import SingleDepartment from "./features/main/SingleDepartmentPage/SingleDepartment";
 import SingleBookDetail from "./features/main/SingleYearPage/SingleBookDetail";
 import SingleYear from "./features/main/SingleYearPage/SingleYear";
+import CartSharedLayout from "./SharedLayouts/CartSharedLayout";
 import MainSharedLayout from "./SharedLayouts/MainSharedLayout";
 
 function App() {
@@ -18,11 +19,15 @@ function App() {
       <Routes>
         <Route path="/" element={<MainSharedLayout />}>
           <Route index element={<DepartmentList />} />
-          <Route path="cart" element={<Cart />} />
-          <Route path="cart/order-history" element={<OrderHistory />} />
-          <Route path="cart/cart-book-detail" element={<CartBookDetail />} />
+          <Route path="cart" element={<CartSharedLayout />}>
+            <Route index element={<Cart />} />
+            <Route path="order-history" element={<OrderHistory />} />
+            <Route path="cart-book-detail" element={<CartBookDetail />} />
+          </Route>
+
           <Route path="search" element={<SearchResults />} />
           <Route path="search/:bookId" element={<SearchBookDetail />} />
+
           <Route
             path="department/:departmentId"
             element={<SingleDepartment />}

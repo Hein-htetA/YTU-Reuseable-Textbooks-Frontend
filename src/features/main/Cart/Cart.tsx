@@ -5,11 +5,13 @@ import CheckoutForm from "./CheckoutForm";
 import SingleCartItem from "./SingleCartItem";
 import { RxDoubleArrowRight } from "react-icons/rx";
 import { Link } from "react-router-dom";
+import { selectIsLoggedIn } from "../../slices/userSlice";
 
 const Cart = () => {
   const [isCheckout, setIsCheckout] = useState(false);
   const itemsInCart = useSelector(SelectItems);
   const totalAmount = useSelector(SelectTotalAmount);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
 
   useEffect(() => {
     if (itemsInCart.length < 1) {
@@ -17,16 +19,18 @@ const Cart = () => {
     }
   }, [itemsInCart.length]);
   return (
-    <div className="px-5 py-5 w-full max-w-3xl mx-auto text-sm min-h-screen">
+    <div className="w-full max-w-3xl mx-auto text-sm min-h-screen">
       <div className="text-lg flex justify-between items-center font-bold mb-4">
         <div>Shopping Cart</div>
-        <Link
-          to="/cart/order-history"
-          className="text-sm flex items-center gap-1 text-pink-500"
-        >
-          <div>Order History</div>
-          <RxDoubleArrowRight className="text-lg" />
-        </Link>
+        {isLoggedIn && (
+          <Link
+            to="/cart/order-history"
+            className="text-sm flex items-center gap-1 text-pink-500"
+          >
+            <div>Order History</div>
+            <RxDoubleArrowRight className="text-lg" />
+          </Link>
+        )}
       </div>
       <div className="h-[2px] bg-slate-500 my-5"></div>
       <div className="grid grid-cols-[minmax(0,2.5fr)_1fr_1fr_auto] gap-5 items-center">
