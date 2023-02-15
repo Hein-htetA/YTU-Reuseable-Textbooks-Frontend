@@ -57,7 +57,7 @@ const CheckoutForm = () => {
       await dispatch(addNewOrder(formValues)).unwrap();
       navigate("/cart/order-history");
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   };
 

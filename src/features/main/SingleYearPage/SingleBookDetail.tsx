@@ -63,23 +63,23 @@ const SingleBookDetail = () => {
           className="w-60 mx-auto rounded-md object-fill aspect-[3/4]"
         />
         <div className="flex flex-col gap-y-2 text-sm">
-          <div className="font-bold text-center mb-1 text-base sm:text-left">
-            {book?.title + "(" + book?.edition + ")"}
+          <div className="font-bold text-center mb-1 text-base sm:text-left capitalize">
+            {book?.title + " (" + book?.edition + ")"}
           </div>
-          <div className="grid grid-cols-[auto_1fr] gap-x-1">
-            <div>Author - </div>
+          <div className="grid grid-cols-[auto_1fr] gap-x-2 capitalize">
+            <div>Author: </div>
             <div>{book?.author}</div>
           </div>
-          <div className="grid grid-cols-[auto_1fr] gap-x-1">
-            <div>Available Chapters -</div>
+          <div className="grid grid-cols-[auto_1fr] gap-x-2 ">
+            <div>Available Chapters: </div>
             <div>
               {book?.availableChapters.some((chapter: number) => chapter === 99)
                 ? "1 - End"
                 : book?.availableChapters.join(", ")}
             </div>
           </div>
-          <div className="grid grid-cols-[auto_1fr] gap-x-1">
-            <div>Price - </div>
+          <div className="grid grid-cols-[auto_1fr] gap-x-2">
+            <div>Price: </div>
             <div>{book?.price} Kyats</div>
           </div>
           <div className="flex items-center gap-2 font-bold -mb-2 mt-2">
