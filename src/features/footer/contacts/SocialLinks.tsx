@@ -8,7 +8,7 @@ const SocialLinks = () => {
     <ul className="w-1/2 flex mx-auto text-2xl justify-center gap-4 text-slate-500">
       <li>
         <a
-          href="https://www.facebook.com/profile.php?id=100012656290113"
+          href="https://www.facebook.com/profile.php?id=100090265963446&mibextid=ZbWKwL"
           target={"_blank"}
           rel="noreferrer"
         >

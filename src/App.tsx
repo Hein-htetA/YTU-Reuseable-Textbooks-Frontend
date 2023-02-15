@@ -12,6 +12,7 @@ import SingleBookDetail from "./features/main/SingleYearPage/SingleBookDetail";
 import SingleYear from "./features/main/SingleYearPage/SingleYear";
 import CartSharedLayout from "./SharedLayouts/CartSharedLayout";
 import MainSharedLayout from "./SharedLayouts/MainSharedLayout";
+import NotFound from "./SharedLayouts/NotFound";
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
             path="department/:departmentId/year/:year/book/:bookId"
             element={<SingleBookDetail />}
           />
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </BrowserRouter>
