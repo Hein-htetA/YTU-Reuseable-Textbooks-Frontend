@@ -84,7 +84,14 @@ const SingleBookDetail = () => {
           </div>
           <div className="flex items-center gap-2 font-bold -mb-2 mt-2">
             <AiOutlineDoubleRight className="text-base" />
-            <div>{book?.amountInStock} + in stock</div>
+            <div>
+              {book?.amountInStock === 1 ? (
+                <span className="text-red-500">Only 1 left</span>
+              ) : (
+                <span>{book?.amountInStock}</span>
+              )}{" "}
+              in stock
+            </div>
           </div>
           <div className="flex items-center gap-2 font-bold">
             <AiOutlineClockCircle className="text-base" />
