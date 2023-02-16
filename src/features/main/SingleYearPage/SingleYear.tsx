@@ -30,7 +30,7 @@ const SingleYear = () => {
   return (
     <div className="px-5 min-h-screen">
       <h3
-        className="text-lg text-slate-700 text-center capitalize px-3 border-b-2 border-slate-700 w-fit mx-auto pb-1 mt-5 mb-1 font-bold hover:cursor-pointer"
+        className="text-lg text-slate-700 text-center capitalize px-3 border-slate-700 w-fit mx-auto pb-1  mb-1 font-bold hover:cursor-pointer"
         onClick={() => navigate(-1)}
       >
         {state.department}
