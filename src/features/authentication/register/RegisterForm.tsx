@@ -30,16 +30,16 @@ interface Props {
 }
 
 const registerFormRight =
-  "fixed p-4 bottom-0 bg-white left-0 right-0 z-20 rounded-t-xl translate-x-full transition-transform duration-500";
+  "fixed p-4 bottom-0 bg-white left-0 right-0 z-20 rounded-t-xl translate-x-full transition-transform duration-500 overflow-y-scroll overflow-x-hidden top-0";
 
 const registerFormRightNoTransition =
-  "fixed p-4 bottom-0 bg-white left-0 right-0 z-20 rounded-t-xl translate-x-full";
+  "fixed p-4 bottom-0 bg-white left-0 right-0 z-20 rounded-t-xl translate-x-full overflow-y-scroll overflow-x-hidden top-0";
 
 const registerFormShow =
-  "fixed p-4 bottom-0 bg-white left-0 right-0 z-20 rounded-t-xl translate-0 transition-transform duration-500 delay-100";
+  "fixed p-4 bottom-0 bg-white left-0 right-0 z-20 rounded-t-xl translate-0 transition-transform duration-500 delay-100 overflow-y-scroll overflow-x-hidden top-0";
 
 const registerFormBottom =
-  "fixed p-4 bottom-0 bg-white left-0 right-0 z-20 rounded-t-xl translate-y-full transition-transform duration-500";
+  "fixed p-4 bottom-0 bg-white left-0 right-0 z-20 rounded-t-xl translate-y-full transition-transform duration-500 overflow-y-scroll overflow-x-hidden top-0";
 
 type auth = "login" | "register";
 
