@@ -74,7 +74,7 @@ const SingleBookDetail = () => {
             <div>Available Chapters: </div>
             <div>
               {book?.availableChapters.some((chapter: number) => chapter === 99)
-                ? "1 - End"
+                ? "Start - End"
                 : book?.availableChapters.join(", ")}
             </div>
           </div>
